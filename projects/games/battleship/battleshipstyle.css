@@ -1,0 +1,265 @@
+:root {
+    --water-blue: #85c1e9;
+    --water-hover: #a9d0f5;
+    --setup-taken: #34495e; 
+    --grid-bg: #2c3e50;
+    --grid-border: #2c3e50;
+}
+
+.game-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.board-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.battleship-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); 
+    grid-template-rows: repeat(10, 1fr);
+    width: 350px;
+    height: 350px;
+    background-color: var(--grid-bg);
+    border: 4px solid var(--grid-border);
+    gap: 1px;
+}
+
+/* TILE CONTAINER */
+.tile {
+    position: relative;
+    background-color: var(--water-blue);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.tile:hover {
+    background-color: var(--water-hover); 
+}
+
+/* --- SETUP PHASE --- */
+.tile.taken {
+    background-color: var(--setup-taken); 
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+.tile.ship-part {
+    z-index: 5;
+}
+
+.tile.ship-part::before {
+    content: '';
+    position: absolute;
+    top: -1px; 
+    left: -1px;
+    width: calc(100% + 2px); 
+    height: calc(100% + 2px);
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 6;
+}
+
+.tile.part-small::before       { background-image: url('images/small_ship.png'); }
+.tile.bow-front::before        { background-image: url('images/ship_bow_front.png'); }
+.tile.bow-back::before         { background-image: url('images/ship_bow_back.png'); }
+.tile.part-straight::before    { background-image: url('images/straight_connector.png'); }
+.tile.part-corner::before      { background-image: url('images/corner_connector.png'); }
+.tile.part-corner.full::before { background-image: url('images/corner_connector_full.png'); }
+.tile.part-t-junction::before  { background-image: url('images/t_junction.png'); }
+.tile.part-t-junction.full::before        { background-image: url('images/t_junction_full.png'); }
+.tile.part-t-junction.full-flip::before   { background-image: url('images/t_junction_full_flip.png'); }
+.tile.part-t-junction.double-full::before { background-image: url('images/t_junction_double_full.png'); }
+.tile.part-central::before     { background-image: url('images/central_connector.png'); }
+.tile.part-central.full::before      { background-image: url('images/central_connector_full.png'); }
+.tile.part-central.full-half::before { background-image: url('images/central_connector_full_half.png'); }
+
+/* --- ROTATION LOGIC -- */
+
+/* Straights */
+.tile.part-straight.con-E::before, 
+.tile.part-straight.con-W::before { transform: rotate(90deg); }
+
+/* Bows */
+.tile.part-bow.con-S::before { transform: rotate(0deg); }
+.tile.part-bow.con-N::before { transform: rotate(180deg); }
+.tile.part-bow.con-E::before { transform: rotate(270deg); }
+.tile.part-bow.con-W::before { transform: rotate(90deg); }
+
+/* Corners */
+.tile.part-corner.con-S.con-E::before { transform: rotate(0deg); }
+.tile.part-corner.con-S.con-W::before { transform: rotate(90deg); }
+.tile.part-corner.con-N.con-W::before { transform: rotate(180deg); }
+.tile.part-corner.con-N.con-E::before { transform: rotate(270deg); }
+
+/* T-Junctions */
+.tile.part-t-junction.face-S::before { transform: rotate(0deg); }
+.tile.part-t-junction.face-W::before { transform: rotate(90deg); }
+.tile.part-t-junction.face-N::before { transform: rotate(180deg); }
+.tile.part-t-junction.face-E::before { transform: rotate(270deg); }
+
+/* Small Boats */
+
+.tile.part-small.face-N::before { transform: rotate(0deg); }
+.tile.part-small.face-S::before { transform: rotate(180deg); }
+.tile.part-small.face-E::before { transform: rotate(90deg); }
+.tile.part-small.face-W::before { transform: rotate(270deg); }
+
+/* Quarter Central Connector */
+.tile.part-central.full-missing-corner::before { 
+    background-image: url('images/central_connector_missing_corner.png'); 
+}
+
+/* Missing Corner Rotations */
+.tile.part-central.full-missing-corner.empty-NE::before { transform: rotate(0deg); }
+.tile.part-central.full-missing-corner.empty-SE::before { transform: rotate(90deg); }
+.tile.part-central.full-missing-corner.empty-SW::before { transform: rotate(180deg); }
+.tile.part-central.full-missing-corner.empty-NW::before { transform: rotate(270deg); }
+
+/* Opposite Corners Central Connector */
+.tile.part-central.full-opposite::before { 
+    background-image: url('images/central_connector_half_full.png'); 
+}
+
+.tile.part-central.full-opposite.diag-backslash::before { transform: rotate(0deg); }
+
+.tile.part-central.full-opposite.diag-slash::before { transform: rotate(90deg); }
+
+.tile.hit::after,
+.tile.miss::after {
+    content: '';
+    position: absolute;
+    
+    /* Expansion Logic */
+    top: -1px; 
+    left: -1px;
+    width: calc(100% + 2px); 
+    height: calc(100% + 2px);
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+    pointer-events: none; 
+}
+
+.tile.hit::after {
+    background-image: url('images/damage.gif');
+    animation: flash 0.2s;
+}
+
+.tile.miss::after {
+    background-image: url('images/miss.png');
+    animation: flash 0.2s;
+}
+
+.tile.sunk::before {
+    filter: brightness(0.6) grayscale(80%);
+}
+
+@media (max-width: 800px) {
+    .battleship-grid {
+        width: 85vw;  
+        height: 85vw;
+    }
+}
+
+@keyframes flash {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Central Connector Full-Half Rotations */
+
+.tile.part-central.full-half.face-N::before { 
+    transform: rotate(180deg); 
+}
+
+.tile.part-central.full-half.face-S::before { 
+    transform: rotate(0deg); 
+}
+
+.tile.part-central.full-half.face-E::before { 
+    transform: rotate(270deg); 
+}
+
+.tile.part-central.full-half.face-W::before { 
+    transform: rotate(90deg); 
+}
+
+/* Quarter Central Connector */
+.tile.part-central.full-one-corner::before { 
+    background-image: url('images/central_connector_corner.png'); 
+}
+
+.tile.part-central.full-one-corner.filled-SE::before { transform: rotate(0deg); }
+.tile.part-central.full-one-corner.filled-SW::before { transform: rotate(90deg); }
+.tile.part-central.full-one-corner.filled-NW::before { transform: rotate(180deg); }
+.tile.part-central.full-one-corner.filled-NE::before { transform: rotate(270deg); }
+
+/* Buttons */
+
+.controls-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+button {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    background-color: #ffffff;
+    color: #2c3e50; 
+    border: 2px solid #2c3e50;
+    border-radius: 8px; 
+    
+    padding: 12px 24px;
+    width: 160px; 
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, transform 0.1s;
+}
+
+button:hover {
+    background-color: #2c3e50;
+    color: #ffffff;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    border-color: #95a5a6;
+    color: #95a5a6;
+    cursor: not-allowed;
+}
+button:disabled:hover {
+    background-color: #ffffff;
+    color: #95a5a6;
+}
+
+/* --- FOG OF WAR --- */
+
+#computer-board .tile.ship-part::before {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out; 
+}
+
+#computer-board .tile.ship-part.sunk::before {
+    opacity: 1;
+}
