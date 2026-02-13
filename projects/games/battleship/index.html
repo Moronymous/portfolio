@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Own Battleship - Duncan Standish</title>
+    <link rel="stylesheet" href="/mainstyle.css">
+    <link rel="stylesheet" href="/projects/games/battleship/battleshipstyle.css">
+</head>
+<body>
+
+    <nav id="navigationbar">
+        <h3>Menu</h3>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li>
+                <a href="/projects/">Projects</a>
+                <ul class="submenu">
+                    <li><a href="/projects/games/">Games</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/projects/games/battleship/">Battleship</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/musicandvideos/">Videos & Music</a>
+                <ul class="submenu">
+                    <li>
+                        <a href="/musicandvideos/music">Music</a>
+                    </li>
+                    <li>
+                        <a href="/musicandvideos/videos">Videos</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="/writing/">Writing</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="central-card">
+        <h1>Build Your Own Battleship</h1>
+        <h2 class="central-subtitle">Design your Fleet, then Test your Mettle</h2>
+
+        <div id="status-message">Setup your fleet...</div>
+
+        <div class="game-container">
+            
+            <div class="board-wrapper">
+                <h3>Friendly Waters</h3>
+                <div id="player-board" class="battleship-grid"></div>
+            </div>
+
+            <div class="board-wrapper">
+                <h3>Enemy Waters</h3>
+                <div id="computer-board" class="battleship-grid"></div>
+            </div>
+
+        </div>
+
+        <div class="controls-container">
+            <button id="start-btn">Start Game</button>
+            <button id="reset-btn">Reset Game</button>
+        </div>
+
+    </div>
+
+    <script src="battleshipgame.js"></script>
+</body>
+</html>
