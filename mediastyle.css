@@ -1,0 +1,47 @@
+/*mainstyle.css
+Style for main pages of site
+Created by: Duncan Standish
+Created on: 13/02/2026
+*/
+
+.media-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    text-align: left;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.media-item {
+    margin-bottom: 3rem;
+}
+
+.media-item h4 {
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    font-size: 1.2rem;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    background: #000;
+    border-radius: 4px; 
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+audio {
+    width: 100%;
+    margin-top: 0.5rem;
+}
