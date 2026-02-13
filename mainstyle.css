@@ -48,6 +48,18 @@ header#toptitle h2 {
     opacity: 0.8;
 }
 
+h2.central-subtitle {
+    color: #000000;
+    font-size: 1.25rem; 
+    font-weight: 500;   
+    margin-top: -0.3rem;  
+    margin-bottom: 2rem; 
+    
+    /* maybe enable */
+     border-bottom: 1px solid #eee; 
+    padding-bottom: 1rem;
+}
+
 h3#githublink {
     margin-bottom: 2rem;
     border-bottom: 1px solid #e1e4e8;
@@ -69,6 +81,8 @@ h3#githublink a:hover {
     transform: scale(1.1);   
     color: #2c3e50;     
 }
+
+/*NAVBAR STYLE*/
 
 nav#navigationbar {
     position: fixed;
@@ -169,6 +183,68 @@ nav#navigationbar a:hover {
     position: relative;
 }
 
+/*SUBMENU STYLE*/
+
+ul.submenu {
+    padding-left: 0;    
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden; 
+    overflow: hidden;  
+    margin-bottom: 0;
+    transition: 
+        all 0.3s ease-in-out 2s,
+        opacity 0.3s ease-in-out 2s; 
+}
+
+nav#navigationbar li:hover > ul.submenu {
+    max-height: 2000px;
+    opacity: 1;
+    visibility: visible;
+    margin-bottom: 1rem; 
+    transition-delay: 0.1s;
+}
+
+nav#navigationbar ul.submenu a {
+    color: #2c3e50;       
+    font-size: 1.0rem;  
+    font-weight: 500;  
+    padding-left: 1.5rem; 
+    margin-bottom: 0.5rem;
+    border-left: 3px solid #e1e4e8; 
+}
+
+nav#navigationbar ul.submenu a:hover {
+    color: #3498db;       
+    border-left-color: #3498db; 
+    transform: translateX(5px);
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+nav#navigationbar ul.submenu ul.submenu a {
+    padding-left: 3.5rem; 
+    border-left: none; 
+    font-size: 0.9rem; 
+}
+
+nav#navigationbar ul.submenu li:hover > ul.submenu {
+    max-height: 2000px;
+    opacity: 1;
+    visibility: visible;
+    margin-bottom: 0.5rem;
+    transition-delay: 0.1s; 
+}
+
+nav#navigationbar ul.submenu ul.submenu a:hover {
+    border-left: none;
+    background-color: transparent;
+}
+
 /* Mobile */
 @media (max-width: 768px) {
     
@@ -214,5 +290,12 @@ nav#navigationbar a:hover {
         margin: 1rem auto;
         padding: 1.5rem;
         margin-bottom: 100px; 
+    }
+
+    ul.submenu {
+        max-height: 0 !important;
+        opacity: 0 !important;
+        margin: 0 !important;
+        display: none !important;
     }
 }
