@@ -1,7 +1,7 @@
 :root {
-    --water-blue: #85c1e9;
+    --water-blue: #a5cfeb;
     --water-hover: #a9d0f5;
-    --setup-taken: #34495e; 
+    --setup-taken: #31c745; 
     --grid-bg: #2c3e50;
     --grid-border: #2c3e50;
 }
@@ -22,8 +22,8 @@
 
 .battleship-grid {
     display: grid;
-    grid-template-columns: repeat(10, 1fr); 
-    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(var(--board-size, 10), 1fr); 
+    grid-template-rows: repeat(var(--board-size, 10), 1fr);
     width: 350px;
     height: 350px;
     background-color: var(--grid-bg);
@@ -132,12 +132,28 @@
 
 .tile.part-central.full-opposite.diag-slash::before { transform: rotate(90deg); }
 
-.tile.hit::after,
-.tile.miss::after {
+/* --- COMBAT LAYERS --- */
+
+.tile.hit.dead-debris::before {
     content: '';
     position: absolute;
+    top: -1px; 
+    left: -1px;
+    width: calc(100% + 2px); 
+    height: calc(100% + 2px);
     
-    /* Expansion Logic */
+    background-image: url('images/debris.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    z-index: 5;
+    opacity: 1 !important;
+}
+
+.tile.hit.dead-part::before {
+    content: '';
+    position: absolute;
     top: -1px; 
     left: -1px;
     width: calc(100% + 2px); 
@@ -146,13 +162,32 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    
+    z-index: 5;
+    opacity: 1 !important;
+    
+    filter: brightness(0.4);
+}
+
+.tile.hit::after,
+.tile.miss::after {
+    content: '';
+    position: absolute;
+    top: -1px; 
+    left: -1px;
+    width: calc(100% + 2px); 
+    height: calc(100% + 2px);
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
     z-index: 10;
     pointer-events: none; 
 }
 
 .tile.hit::after {
-    background-image: url('images/damage.gif');
-    animation: flash 0.2s;
+    background-image: var(--hit-gif, url('images/damage.gif'));
 }
 
 .tile.miss::after {
@@ -262,4 +297,127 @@ button:disabled:hover {
 
 #computer-board .tile.ship-part.sunk::before {
     opacity: 1;
+}
+
+/* --- FACE LAYER --- */
+.face-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 7;
+    pointer-events: none;
+    transition: opacity 0.2s, background-image 0.2s;
+    opacity: 0;
+}
+
+/* Face States */
+.face-layer.face-smile {
+    background-image: url('images/smile.png');
+}
+
+.face-layer.face-frown {
+    background-image: url('images/frown.png');
+}
+
+.face-layer.face-dead {
+    background-image: url('images/dead_face.png'); 
+}
+
+#computer-board .face-layer.face-dead {
+    opacity: 1;
+}
+
+#player-board .face-layer.face-smile,
+#player-board .face-layer.face-frown,
+#player-board .face-layer.face-dead {
+    opacity: 1;
+}
+
+/* --- SETTINGS CONTROLS --- */
+.settings-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.setting-group label {
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 0.9rem;
+}
+
+.setting-group select {
+    padding: 8px 12px;
+    border: 2px solid #2c3e50;
+    border-radius: 6px;
+    background-color: white;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+
+.setting-group select:hover {
+    background-color: #f0f8ff;
+}
+
+/* --- LAYOUT WRAPPER --- */
+.game-layout-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligns items to top */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- OPTIONS SIDEBAR --- */
+.options-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 200px;
+    flex-shrink: 0;
+    text-align: center;
+    margin-top: 2rem;
+    margin-left: 6rem;
+}
+
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 1000px) {
+    .game-layout-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .options-card {
+        width: 90%;
+        max-width: 600px;
+    }
+    
+    .settings-container {
+        flex-direction: row;
+        justify-content: center;
+    }
 }
