@@ -54,9 +54,7 @@ h2.central-subtitle {
     font-weight: 500;   
     margin-top: -0.3rem;  
     margin-bottom: 2rem; 
-    
-    /* maybe enable */
-     border-bottom: 1px solid #eee; 
+    border-bottom: 1px solid #eee; 
     padding-bottom: 1rem;
 }
 
@@ -298,4 +296,117 @@ nav#navigationbar ul.submenu ul.submenu a:hover {
         margin: 0 !important;
         display: none !important;
     }
+}
+
+/* contact form */
+#contact {
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+    text-align: center;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 600px;
+    margin: 1.5rem auto 0 auto;
+    align-items: center;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #fafafa;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2c3e50;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+    background-color: #ffffff;
+}
+
+.submit-btn {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: #2c3e50;
+    color: #ffffff;
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, transform 0.1s;
+    align-self: center;
+}
+
+.submit-btn:hover {
+    background-color: #ffffff;
+    color: #2c3e50;
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+}
+
+#welcome {
+    background-color: #f0f8ff; 
+    border-left: 4px solid #2c3e50;
+    padding: 1.5rem 2rem;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+#welcome h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.4rem;
+}
+
+#welcome p {
+    margin-bottom: 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+#aboutme h3 {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+#aboutme p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+#aboutme p:last-child {
+    margin-bottom: 0;
 }
