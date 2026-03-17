@@ -11,7 +11,7 @@
 
     <header id="toptitle">
         <h1>Duncan Standish</h1>
-        <h2>Developer, Musician, Video-Editor & Creative Consultant</h2>
+        <h2>Developer, Musician, Editor & Creative Consultant</h2>
         <p class="subtitle">Bridging technical logic with creative design.</p>
     </header>
 
@@ -49,11 +49,20 @@
 
 
     <div class="central-card">
+
+        <div id="welcome">
+            <h3>Welcome!</h3>
+            <p>
+                Thanks so much for visiting my site! Things are still under construction here, but you can check out some of my past and current projects using the site navigation bar.
+            </p>
+        </div>
         
+        <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee;">
+
         <div id="aboutme">
             <h3>About Me</h3>
             <p>
-                With a background in both full-stack development and creative production, I'm always looking to explore new methods and innovations.
+                I am a multidisciplinary developer and creator with a background spanning across a range of fields, including software development, design, music and video production, linguistics, and project management. My main goal across my work is to bridge technical implementation, structural logic, and creative composition.
             </p>
         </div>
 
@@ -61,8 +70,34 @@
 
         <main id="mainpage_randomsample">
             <h3>Featured Work</h3>
-            <p><em>(Javascript Randomizer Pending)</em></p>
+            <p><em>(Working on Randomiser for this section)</em></p>
         </main>
+
+        <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee;">
+
+        <div id="contact">
+            <h3>Contact</h3>
+            <p>If you're interested in collaborating or want to reach out, just send me a message below.</p>
+            
+            <form action="https://formspree.io/f/xnjbgoej" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Your Name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="How can I help you?"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
 
     </div>
 
